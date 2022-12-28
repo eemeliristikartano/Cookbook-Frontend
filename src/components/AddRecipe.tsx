@@ -77,7 +77,17 @@ export default function AddRecipe() {
     }
 
     const handleSave = async () => {
-        console.log(JSON.stringify(recipe))
+        const config = {
+            method: 'POST',
+            headers: { 'Content-type': 'application/json' },
+            body: JSON.stringify(recipe)
+        };
+        try {
+            const response = await fetch(process.env.REACT_APP_SERVER_URL + '/saverecipe', config)
+            //TODO add if statement.
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     // Handles ingredientName and amount.

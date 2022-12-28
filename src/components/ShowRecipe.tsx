@@ -34,7 +34,7 @@ export default function ShowRecipe({ recipe, open, handleClose }: any) {
             {recipe !== undefined && // If the recipe is defined, return dialog that contains recipe.
                 < Dialog open={open} fullWidth maxWidth={'md'}>
                     <DialogContent>
-                        <DialogTitle>{recipe.name}</DialogTitle>
+                        <DialogTitle>{recipe.recipeName}</DialogTitle>
                         <h4>Instructions</h4>
                         <DialogContentText>{recipe.instructions}</DialogContentText>
                         <h4>Ingredients</h4>
@@ -42,7 +42,7 @@ export default function ShowRecipe({ recipe, open, handleClose }: any) {
                             {recipe.ingredients.map((ingredient: any, index: number) =>
                                 <ListItem key={index} >
                                     {/*If unit is not null, shows ingredient, amount and unit. Otherwise shows ingredient and amount.*/}
-                                    {ingredient.amount.unit != null ? `${ingredient.name} ${ingredient.amount.quantity} ${ingredient.amount.unit.unit}` : `${ingredient.name} ${ingredient.amount.quantity}`}
+                                    {ingredient.amount.unit != null ? `${ingredient.ingredientName} ${ingredient.amount.quantity} ${ingredient.amount.unit.unit}` : `${ingredient.ingredientName} ${ingredient.amount.quantity}`}
                                 </ListItem>
                             )}
                         </List>

@@ -12,7 +12,7 @@ export default function Recipelist() {
 
     // Definitions for columns.
     const columnsDefs: GridColDef[] = [
-        { field: 'name', headerName: 'Name', flex: 1 },
+        { field: 'recipeName', headerName: 'Name', flex: 1 },
         {
             field: 'category', headerName: 'Category', flex: 1,
             renderCell: (params: GridRenderCellParams<ICategory>) => params.value != null ? params.value.name : '',

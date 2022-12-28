@@ -9,29 +9,42 @@ import { IAmount, ICategory, IIngredient, IRecipe, IUnit } from "../interfaces";
 import MenuItem from '@mui/material/MenuItem';
 import { useState, useEffect } from 'react'
 
+//TODO
 import EditIcon from '@mui/icons-material/Edit';
 
 export default function EditRecipe({ recipeProps }: any) {
     const [open, setOpen] = useState(false)
-    const [recipe, setRecipe] = useState({
+    const [recipe, setRecipe] = useState<IRecipe>({
         recipeName: '',
         instructions: '',
         source: '',
-        category: '',
-        ingredients: [{
-            name: '',
-            amount: '',
-            unit: ''
-        }]
+        category: {
+            categoryId: -1,
+            name: ''
+        },
+        ingredients: [
+            {
+                ingredientId: -1,
+                ingredientName: '',
+                amount: {
+                    amountId: -1,
+                    quantity: '',
+                    unit: {
+                        unitId: -1,
+                        unit: ''
+                    }
+                }
+            }
+        ]
     });
 
     const handleOpen = () => {
         setOpen(!open)
         setRecipe({
-            recipeName: recipeProps.name,
+            recipeName: recipeProps.recipeName,
             instructions: recipeProps.instructions,
             source: recipeProps.source,
-            category: recipeProps.category.name,
+            category: recipeProps.category != null && recipeProps.category,
             ingredients: recipeProps.ingredients
         })
         console.log(recipe)
@@ -39,7 +52,7 @@ export default function EditRecipe({ recipeProps }: any) {
 
 
 
-    const [inputFields, setInputFields] = useState<any>([]);
+
 
 
 
