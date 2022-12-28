@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { DataGrid, GridColDef, GridEventListener, GridRenderCellParams, GridRowParams, MuiEvent } from '@mui/x-data-grid';
-import { IRecipe } from "../types";
+import { IRecipe } from "../interfaces";
 import { Box } from "@mui/material";
 import AddRecipe from "./AddRecipe";
 import ShowRecipe from "./ShowRecipe";
@@ -36,7 +36,7 @@ export default function Recipelist() {
         // eslint-disable-next-line
     }, []);
 
-    // Used for opening recipe-dialog when user clicks row on table.
+    // Used for opening recipe-dialog when user clicks row on datagrid.
     const handleEvent: GridEventListener<'rowClick'> = (params: GridRowParams, event: MuiEvent<React.MouseEvent<HTMLElement>>) => {
         setOpen(!open);
         setRecipe(params.row);
