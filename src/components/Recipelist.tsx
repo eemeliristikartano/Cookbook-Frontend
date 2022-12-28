@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { DataGrid, GridColDef, GridEventListener, GridRenderCellParams, GridRowParams, MuiEvent } from '@mui/x-data-grid';
-import { IRecipe } from "../interfaces";
-import { Box } from "@mui/material";
+import { ICategory, IRecipe } from "../interfaces";
+import { Box, Button } from "@mui/material";
 import AddRecipe from "./AddRecipe";
 import ShowRecipe from "./ShowRecipe";
 
@@ -15,7 +15,7 @@ export default function Recipelist() {
         { field: 'name', headerName: 'Name', flex: 1 },
         {
             field: 'category', headerName: 'Category', flex: 1,
-            renderCell: (params: GridRenderCellParams<object | any>) => params.value != null ? params.value.name : '',
+            renderCell: (params: GridRenderCellParams<ICategory>) => params.value != null ? params.value.name : '',
             sortable: false
         }
     ];

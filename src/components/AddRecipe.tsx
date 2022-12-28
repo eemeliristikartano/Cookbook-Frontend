@@ -6,7 +6,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { ICategory, IIngredient, IRecipe, IUnit } from "../interfaces";
+import { IAmount, ICategory, IIngredient, IRecipe, IUnit } from "../interfaces";
 import MenuItem from '@mui/material/MenuItem';
 
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -21,11 +21,19 @@ export default function AddRecipe() {
         recipeName: '',
         instructions: '',
         source: '',
-        category: '',
+        category: {
+            categoryId: -1,
+            name: ''
+        },
         ingredients: [{
             ingredientName: '',
-            amount: '',
-            unit: ''
+            amount: {
+                quantity: '',
+                unit: {
+                    unitId: -1,
+                    unit: ''
+                }
+            }
         }]
     });
 
@@ -34,8 +42,13 @@ export default function AddRecipe() {
         [
             {
                 ingredientName: '',
-                amount: '',
-                unit: ''
+                amount: {
+                    quantity: '',
+                    unit: {
+                        unitId: -1,
+                        unit: ''
+                    }
+                }
             }
         ]
     );
@@ -44,8 +57,13 @@ export default function AddRecipe() {
     const addFields = () => {
         const newField: IIngredient = {
             ingredientName: "",
-            amount: "",
-            unit: ""
+            amount: {
+                quantity: '',
+                unit: {
+                    unitId: -1,
+                    unit: ''
+                }
+            }
         }
         setInputFields([...inputFields, newField]);
     }
@@ -60,33 +78,29 @@ export default function AddRecipe() {
 
     const handleSave = async () => {
         console.log(JSON.stringify(recipe))
-        const config = {
-            method: 'POST',
-            headers: { 'Content-type': 'application/json' },
-            body: JSON.stringify(recipe)
-        };
-        try {
-            const response = await fetch(process.env.REACT_APP_SERVER_URL + '/saverecipe', config)
-            //TODO add if statement.
-        } catch (error) {
-            console.log(error)
-        }
-
     }
 
     // Handles ingredientName and amount.
     const handleNewIngredients = (index: number, e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const data = [...inputFields] as IIngredient[]
         // Setting ingredient and amount to the right index from inputfields. 
-        data[index][e.target.name as keyof IIngredient] = e.target.value;
+        data[index].ingredientName = e.target.value as string
+        setRecipe({ ...recipe, ingredients: data });
+    }
+
+    // Handles new amount.
+    const handleNewAmount = (index: number, e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const data = [...inputFields] as IIngredient[]
+        // Setting ingredient and amount to the right index from inputfields. 
+        data[index].amount.quantity = e.target.value as string
         setRecipe({ ...recipe, ingredients: data });
     }
 
     // Handles unit from inputfields. Needs to be it's own funcion because property 'name' does not exist on type SelectChangeEvent.
-    const handleUnit = (index: number, e: SelectChangeEvent<string>) => {
+    const handleUnit = (index: number, e: SelectChangeEvent<IUnit>) => {
         const ingredients = [...inputFields] as IIngredient[]
         // Setting unit to the right index.
-        ingredients[index]['unit' as keyof IIngredient] = e.target.value as string;
+        ingredients[index].amount.unit = e.target.value as IUnit;
         setRecipe({ ...recipe, ingredients: ingredients });
     }
 
@@ -144,15 +158,15 @@ export default function AddRecipe() {
                         <Select
                             label="Category"
                             value={recipe.category}
-                            onChange={(e) => setRecipe({ ...recipe, category: e.target.value })}
-
+                            onChange={(e) => setRecipe({ ...recipe, category: e.target.value as ICategory })}
                         >
                             <MenuItem value='None'>
                                 <em>None</em>
                             </MenuItem>
-                            {categories.map((category, categoryIndex) =>
-                                <MenuItem key={categoryIndex} value={category.name} >{category.name}</MenuItem>
+                            {categories.map((category: ICategory, categoryIndex: number) =>
+                                <MenuItem key={categoryIndex} value={category as any} >{category.name}</MenuItem>
                             )}
+
 
 
                         </Select>
@@ -183,20 +197,19 @@ export default function AddRecipe() {
                                     <TextField
                                         label='Amount'
                                         name='amount'
-                                        value={ingredient.amount}
-                                        onChange={(e) => handleNewIngredients(index, e)}
+                                        value={ingredient.amount.quantity}
+                                        onChange={(e) => handleNewAmount(index, e)}
                                     />
                                     <Select
                                         label='Unit'
-                                        value={ingredient.unit}
+                                        value={ingredient.amount.unit}
                                         onChange={(e) => handleUnit(index, e)}
-
                                     >
                                         <MenuItem value='None'>
                                             <em>None</em>
                                         </MenuItem>
-                                        {units.map((unit, unitIndex) =>
-                                            <MenuItem key={unitIndex} value={unit.unit} >{unit.unit}</MenuItem>
+                                        {units.map((unit: IUnit, unitIndex: number) =>
+                                            <MenuItem key={unitIndex} value={unit as any} >{unit.unit}</MenuItem>
                                         )}
 
 

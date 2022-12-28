@@ -1,8 +1,9 @@
 //Interface for recipe
 export interface IRecipe {
+    recipeId?: number
     recipeName: string
     instructions: string
-    category: string
+    category: ICategory
     dateCreated?: string
     dateEdited?: string
     source: string
@@ -16,9 +17,16 @@ export interface ICategory {
 
 //Interface fos ingredient
 export interface IIngredient {
+    ingredientId?: number
     ingredientName: string
-    amount: string
-    unit: string
+    amount: IAmount
+}
+
+
+export interface IAmount {
+    amountId?: number
+    quantity: string
+    unit: IUnit
 }
 
 //Interface for unit
