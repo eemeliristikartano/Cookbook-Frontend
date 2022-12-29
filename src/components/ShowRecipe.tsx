@@ -41,8 +41,7 @@ export default function ShowRecipe({ recipe, open, handleClose }: any) {
                         <List>
                             {recipe.ingredients.map((ingredient: any, index: number) =>
                                 <ListItem key={index} >
-                                    {/*If unit is not null, shows ingredient, amount and unit. Otherwise shows ingredient and amount.*/}
-                                    {ingredient.amount.unit != null ? `${ingredient.ingredientName} ${ingredient.amount.quantity} ${ingredient.amount.unit.unit}` : `${ingredient.ingredientName} ${ingredient.amount.quantity}`}
+                                    {`${ingredient.ingredientName} ${ingredient.amount.quantity} ${ingredient.amount.unit.unit}`}
                                 </ListItem>
                             )}
                         </List>

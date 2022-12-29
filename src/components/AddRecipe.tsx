@@ -169,12 +169,13 @@ export default function AddRecipe() {
                             label="Category"
                             value={recipe.category}
                             onChange={(e) => setRecipe({ ...recipe, category: e.target.value as ICategory })}
+                            displayEmpty={false}
                         >
                             <MenuItem value='None'>
                                 <em>None</em>
                             </MenuItem>
                             {categories.map((category: ICategory, categoryIndex: number) =>
-                                <MenuItem key={categoryIndex} value={category as any} >{category.name}</MenuItem>
+                                category.name !== '' && <MenuItem key={categoryIndex} value={category as any} >{category.name}</MenuItem>
                             )}
 
 
@@ -219,7 +220,7 @@ export default function AddRecipe() {
                                             <em>None</em>
                                         </MenuItem>
                                         {units.map((unit: IUnit, unitIndex: number) =>
-                                            <MenuItem key={unitIndex} value={unit as any} >{unit.unit}</MenuItem>
+                                            unit.unit !== '' && <MenuItem key={unitIndex} value={unit as any} >{unit.unit}</MenuItem>
                                         )}
 
 
