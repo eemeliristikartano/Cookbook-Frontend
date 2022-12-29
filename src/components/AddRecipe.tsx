@@ -86,6 +86,41 @@ export default function AddRecipe() {
         } catch (error) {
             console.log(error)
         }
+        setRecipe({
+            recipeName: '',
+            instructions: '',
+            source: '',
+            category: {
+                categoryId: -1,
+                name: ''
+            },
+            ingredients: [{
+                ingredientName: '',
+                amount: {
+                    quantity: '',
+                    unit: {
+                        unitId: -1,
+                        unit: ''
+                    }
+                }
+            }]
+        }
+        )
+        setInputFields(
+            [
+                {
+                    ingredientName: '',
+                    amount: {
+                        quantity: '',
+                        unit: {
+                            unitId: -1,
+                            unit: ''
+                        }
+                    }
+                }
+            ]
+        );
+        handleClose();
     }
 
     // Handles ingredient name.
