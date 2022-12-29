@@ -62,6 +62,7 @@ export default function EditRecipe({ recipeProps }: any) {
     const handleOpen = () => {
         setOpen(!open)
         setRecipe({
+            recipeId: recipeProps.recipeId,
             recipeName: recipeProps.recipeName,
             instructions: recipeProps.instructions,
             source: recipeProps.source,
@@ -148,8 +149,20 @@ export default function EditRecipe({ recipeProps }: any) {
 
     const handleClose = () => setOpen(!open);
 
-    const handleSave = () => console.log(JSON.stringify(recipe))
-
+    const handleSave = async () => {
+        const config = {
+            method: 'POST',
+            headers: { 'Content-type': 'application/json' },
+            body: JSON.stringify(recipe)
+        };
+        try {
+            const response = await fetch(process.env.REACT_APP_SERVER_URL + '/updaterecipe', config);
+            //TODO add if statement.
+        } catch (error) {
+            console.log(error)
+        }
+        handleClose();
+    }
     return (
         <>
             <Button
