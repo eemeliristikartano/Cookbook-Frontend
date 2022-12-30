@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -13,8 +12,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import EditRecipe from './EditRecipe';
 
-export default function ShowRecipe({ recipe, open, handleClose }: any) {
+export default function ShowRecipe({ recipe, open, handleClose, getRecipes }: any) {
 
+    //TODO: Maybe own component for deleting recipe.
     const deleteRecipe = async (recipeId: number) => {
         const config = {
             method: 'POST',
@@ -23,9 +23,13 @@ export default function ShowRecipe({ recipe, open, handleClose }: any) {
         }
         try {
             const response = await fetch(process.env.REACT_APP_SERVER_URL + '/deleterecipe', config)
+            //TODO add if statement.
         } catch (error) {
             console.log(error)
         }
+        // Fetches recipes from database.
+        getRecipes();
+        // Closes dialog that shows recipe.
         handleClose();
     }
 
@@ -48,7 +52,7 @@ export default function ShowRecipe({ recipe, open, handleClose }: any) {
                         <DialogContentText>{recipe.source !== '' && `Source: ${recipe.source}`}</DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                        <EditRecipe recipeProps={recipe} />
+                        <EditRecipe recipeProps={recipe} getRecipes={getRecipes} closeRecipeDialog={handleClose} />
                         <Button
                             color='error'
                             size='large'

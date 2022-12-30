@@ -4,17 +4,14 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { IAmount, ICategory, IIngredient, IRecipe, IUnit } from "../interfaces";
+import { ICategory, IIngredient, IRecipe, IUnit } from "../interfaces";
 import MenuItem from '@mui/material/MenuItem';
 import { useState, useEffect } from 'react'
 
 import DeleteIcon from '@mui/icons-material/Delete';
-
-//TODO
 import EditIcon from '@mui/icons-material/Edit';
 
-export default function EditRecipe({ recipeProps }: any) {
+export default function EditRecipe({ recipeProps, getRecipes, closeRecipeDialog }: any) {
     const [open, setOpen] = useState(false);
     const [units, setUnits] = useState<Array<IUnit>>([]);
     const [categories, setCategories] = useState<Array<ICategory>>([]);
@@ -68,7 +65,7 @@ export default function EditRecipe({ recipeProps }: any) {
             source: recipeProps.source,
             category: recipeProps.category,
             ingredients: recipeProps.ingredients
-        })
+        });
     }
 
     useEffect(() => {
@@ -134,6 +131,7 @@ export default function EditRecipe({ recipeProps }: any) {
 
     }
 
+    // Deletes ingredient from database.
     const deleteIngredientFromDB = async (ingredientId?: number) => {
         const config = {
             method: 'POST',
@@ -147,8 +145,10 @@ export default function EditRecipe({ recipeProps }: any) {
         }
     }
 
+    //Closes editform.
     const handleClose = () => setOpen(!open);
 
+    // Handles saving recipe to database.
     const handleSave = async () => {
         const config = {
             method: 'POST',
@@ -161,6 +161,11 @@ export default function EditRecipe({ recipeProps }: any) {
         } catch (error) {
             console.log(error)
         }
+        // Fetches recipes from database.
+        getRecipes();
+        // Closes dialog from ShowRecipe.
+        closeRecipeDialog();
+        // Closes editform.
         handleClose();
     }
     return (

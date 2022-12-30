@@ -13,7 +13,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 
 
-export default function AddRecipe() {
+export default function AddRecipe({ getRecipes }: any) {
     const [open, setOpen] = useState(false);
     const [units, setUnits] = useState<Array<IUnit>>([]);
     const [categories, setCategories] = useState<Array<ICategory>>([]);
@@ -120,6 +120,7 @@ export default function AddRecipe() {
                 }
             ]
         );
+        getRecipes();
         handleClose();
     }
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { DataGrid, GridColDef, GridEventListener, GridRenderCellParams, GridRowParams, MuiEvent } from '@mui/x-data-grid';
 import { ICategory, IRecipe } from "../interfaces";
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import AddRecipe from "./AddRecipe";
 import ShowRecipe from "./ShowRecipe";
 
@@ -33,8 +33,7 @@ export default function Recipelist() {
 
     useEffect(() => {
         getRecipes();
-        // eslint-disable-next-line
-    }, []);
+    }, [])
 
     // Used for opening recipe-dialog when user clicks row on datagrid.
     const handleEvent: GridEventListener<'rowClick'> = (params: GridRowParams, event: MuiEvent<React.MouseEvent<HTMLElement>>) => {
@@ -49,8 +48,8 @@ export default function Recipelist() {
 
     return (
         <>
-            <AddRecipe />
-            <ShowRecipe recipe={recipe} open={open} handleClose={handleClose} />
+            <AddRecipe getRecipes={getRecipes} />
+            <ShowRecipe recipe={recipe} open={open} handleClose={handleClose} getRecipes={getRecipes} />
             <Box sx={{ height: 550 }}>
                 <DataGrid
                     getRowId={(row) => row.recipeId}
