@@ -4,6 +4,7 @@ import { ICategory, IRecipe } from "../interfaces";
 import { Box } from "@mui/material";
 import AddRecipe from "./AddRecipe";
 import ShowRecipe from "./ShowRecipe";
+import { SERVER_URL } from "../constants";
 
 export default function Recipelist() {
     const [recipes, setRecipes] = useState<Array<IRecipe>>([]);
@@ -23,7 +24,7 @@ export default function Recipelist() {
     // Gets all recipes from a backend.
     const getRecipes = async () => {
         try {
-            const response = await fetch(process.env.REACT_APP_SERVER_URL + '/recipes');
+            const response = await fetch(SERVER_URL + '/recipes');
             const data = await response.json();
             setRecipes(data);
         } catch (error) {

@@ -10,6 +10,7 @@ import { useState, useEffect } from 'react'
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { SERVER_URL } from '../constants';
 
 export default function EditRecipe({ recipeProps, getRecipes, closeRecipeDialog }: any) {
     const [open, setOpen] = useState(false);
@@ -71,7 +72,7 @@ export default function EditRecipe({ recipeProps, getRecipes, closeRecipeDialog 
     useEffect(() => {
         const getUnits = async () => {
             try {
-                const response = await fetch(process.env.REACT_APP_SERVER_URL + '/units');
+                const response = await fetch(SERVER_URL + '/units');
                 const data = await response.json();
                 setUnits(data);
             } catch (error) {
@@ -80,7 +81,7 @@ export default function EditRecipe({ recipeProps, getRecipes, closeRecipeDialog 
         }
         const getCategories = async () => {
             try {
-                const response = await fetch(process.env.REACT_APP_SERVER_URL + '/categories');
+                const response = await fetch(SERVER_URL + '/categories');
                 const data = await response.json();
                 setCategories(data);
             } catch (error) {
@@ -139,7 +140,7 @@ export default function EditRecipe({ recipeProps, getRecipes, closeRecipeDialog 
             body: JSON.stringify(ingredientId)
         };
         try {
-            const response = await fetch(process.env.REACT_APP_SERVER_URL + '/deleteingredient', config);
+            const response = await fetch(SERVER_URL + '/deleteingredient', config);
         } catch (error) {
             console.log(error)
         }
@@ -156,7 +157,7 @@ export default function EditRecipe({ recipeProps, getRecipes, closeRecipeDialog 
             body: JSON.stringify(recipe)
         };
         try {
-            const response = await fetch(process.env.REACT_APP_SERVER_URL + '/updaterecipe', config);
+            const response = await fetch(SERVER_URL + '/updaterecipe', config);
             //TODO add if statement.
         } catch (error) {
             console.log(error)

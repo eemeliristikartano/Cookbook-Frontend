@@ -4,6 +4,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Button } from '@mui/material';
+import { SERVER_URL } from '../constants';
 
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -22,7 +23,7 @@ export default function ShowRecipe({ recipe, open, handleClose, getRecipes }: an
             body: JSON.stringify(recipeId)
         }
         try {
-            const response = await fetch(process.env.REACT_APP_SERVER_URL + '/deleterecipe', config)
+            const response = await fetch(SERVER_URL + '/deleterecipe', config)
             //TODO add if statement.
         } catch (error) {
             console.log(error)

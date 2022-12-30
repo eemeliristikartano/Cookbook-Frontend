@@ -9,6 +9,7 @@ import { ICategory, IIngredient, IRecipe, IUnit } from "../interfaces";
 import MenuItem from '@mui/material/MenuItem';
 
 import DeleteIcon from '@mui/icons-material/Delete';
+import { SERVER_URL } from "../constants";
 
 
 
@@ -80,7 +81,7 @@ export default function AddRecipe({ getRecipes }: any) {
             body: JSON.stringify(recipe)
         };
         try {
-            const response = await fetch(process.env.REACT_APP_SERVER_URL + '/saverecipe', config);
+            const response = await fetch(SERVER_URL + '/saverecipe', config);
             //TODO add if statement.
         } catch (error) {
             console.log(error)
@@ -157,7 +158,7 @@ export default function AddRecipe({ getRecipes }: any) {
     useEffect(() => {
         const getUnits = async () => {
             try {
-                const response = await fetch(process.env.REACT_APP_SERVER_URL + '/units');
+                const response = await fetch(SERVER_URL + '/units');
                 const data = await response.json();
                 setUnits(data);
             } catch (error) {
@@ -166,7 +167,7 @@ export default function AddRecipe({ getRecipes }: any) {
         }
         const getCategories = async () => {
             try {
-                const response = await fetch(process.env.REACT_APP_SERVER_URL + '/categories');
+                const response = await fetch(SERVER_URL + '/categories');
                 const data = await response.json();
                 setCategories(data);
             } catch (error) {
