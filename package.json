@@ -1,7 +1,7 @@
 {
   "name": "cookbook-frontend",
   "version": "0.1.0",
-  "homepage": "https://eemeliristikartano.github.io/cookbook-frontend",
+  "homepage": "https://eemeliristikartano.github.io/Cookbook-Frontend/",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.5",
