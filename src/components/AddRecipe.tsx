@@ -5,8 +5,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { IAmount, ICategory, IIngredient, IRecipe, IUnit } from "../interfaces";
+import { ICategory, IIngredient, IRecipe, IUnit } from "../interfaces";
 import MenuItem from '@mui/material/MenuItem';
 
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -203,7 +202,7 @@ export default function AddRecipe({ getRecipes }: any) {
                             label='Category'
                             value={recipe.category.name}
                             //                                                Find the right object from array by category name.
-                            onChange={(e) => setRecipe({ ...recipe, category: categories.find(element => element.name == e.target.value) as ICategory })}
+                            onChange={(e) => setRecipe({ ...recipe, category: categories.find(element => element.name === e.target.value) as ICategory })}
                         >
                             {/* MenuItems for categories.*/}
                             <MenuItem value='None'>

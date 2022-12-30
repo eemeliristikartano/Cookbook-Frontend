@@ -191,7 +191,7 @@ export default function EditRecipe({ recipeProps, getRecipes, closeRecipeDialog 
                             label='Category'
                             value={recipe.category.name}
                             //                                                Find the right object from array by category name.
-                            onChange={(e) => setRecipe({ ...recipe, category: categories.find(element => element.name == e.target.value) as ICategory })}
+                            onChange={(e) => setRecipe({ ...recipe, category: categories.find(element => element.name === e.target.value) as ICategory })}
                         >
                             <MenuItem value='None'>
                                 <em>None</em>
