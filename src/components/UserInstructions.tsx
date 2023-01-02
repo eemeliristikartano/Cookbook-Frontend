@@ -17,6 +17,7 @@ export default function UserInstructions() {
                     <Typography variant='body1' >
                         User can add a new recipe, edit a recipe, delete a recipe or watch a recipe.
                         When user clicks on a row, dialog opens that contains the recipe and edit and delete buttons.
+                        User can sort and filter data on the table.
                         Right now there is no possibility for creating an account, but I am working on it. When user adds a new
                         recipe, it goes to the last page on the table.
                     </Typography>
