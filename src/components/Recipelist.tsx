@@ -16,8 +16,7 @@ export default function Recipelist() {
         { field: 'recipeName', headerName: 'Name', flex: 1 },
         {
             field: 'category', headerName: 'Category', flex: 1,
-            renderCell: (params: GridRenderCellParams<ICategory>) => params.value != null ? params.value.name : '',
-            sortable: false
+            valueGetter: (params: GridRenderCellParams<ICategory>) => params.value != null ? params.value.name : '',
         }
     ];
 
