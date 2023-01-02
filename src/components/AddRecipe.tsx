@@ -187,7 +187,7 @@ export default function AddRecipe({ getRecipes }: any) {
 
     return (
         <>
-            <Button variant="outlined" onClick={handleClickOpen} >Add recipe</Button>
+            <Button variant="contained" onClick={handleClickOpen} >Add recipe</Button>
             <Dialog open={open} onClose={handleClose} fullWidth>
                 <DialogTitle>Add recipe.</DialogTitle>
                 <DialogContent dividers>
