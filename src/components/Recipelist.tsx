@@ -6,7 +6,7 @@ import AddRecipe from "./AddRecipe";
 import ShowRecipe from "./ShowRecipe";
 import { SERVER_URL } from "../constants";
 
-export default function Recipelist() {
+export default function Recipelist({ isAuthenticated }: any) {
     const [recipes, setRecipes] = useState<Array<IRecipe>>([]);
     const [recipe, setRecipe] = useState<IRecipe>();
     const [open, setOpen] = useState(false);
@@ -48,8 +48,9 @@ export default function Recipelist() {
 
     return (
         <>
-            <AddRecipe getRecipes={getRecipes} />
-            <ShowRecipe recipe={recipe} open={open} handleClose={handleClose} getRecipes={getRecipes} />
+            {/* If the user is authenticated there the user can add a recipe. */}
+            {isAuthenticated && <AddRecipe getRecipes={getRecipes} />}
+            <ShowRecipe recipe={recipe} open={open} handleClose={handleClose} getRecipes={getRecipes} isAuthenticated={isAuthenticated} />
             <Box sx={{ height: 550 }}>
                 <DataGrid
                     getRowId={(row) => row.recipeId}
