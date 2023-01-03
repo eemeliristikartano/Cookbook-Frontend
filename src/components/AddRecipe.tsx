@@ -75,9 +75,13 @@ export default function AddRecipe({ getRecipes }: any) {
 
 
     const handleSave = async () => {
+        const token = sessionStorage.getItem('jwt-token') as string; // Token from session storage.
         const config = {
             method: 'POST',
-            headers: { 'Content-type': 'application/json' },
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': token
+            },
             body: JSON.stringify(recipe)
         };
         try {
