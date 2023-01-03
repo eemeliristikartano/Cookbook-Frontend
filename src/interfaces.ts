@@ -34,3 +34,9 @@ export interface IUnit {
     unitId: number
     unit: string
 }
+
+// Interface for user
+export interface IUser {
+    username: string,
+    password: string
+}
