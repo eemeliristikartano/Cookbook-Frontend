@@ -13,7 +13,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import EditRecipe from './EditRecipe';
 
-export default function ShowRecipe({ recipe, open, handleClose, getRecipes }: any) {
+export default function ShowRecipe({ recipe, open, handleClose, getRecipes, }: any) {
 
     //TODO: Maybe own component for deleting recipe.
     const deleteRecipe = async (recipeId: number) => {

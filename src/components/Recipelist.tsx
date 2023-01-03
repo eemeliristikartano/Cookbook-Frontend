@@ -48,7 +48,7 @@ export default function Recipelist({ isAuthenticated }: any) {
 
     return (
         <>
-            {/* If the user is authenticated there the user can add a recipe. */}
+            {/* If the user is authenticated the user can add a recipe. */}
             {isAuthenticated && <AddRecipe getRecipes={getRecipes} />}
             <ShowRecipe recipe={recipe} open={open} handleClose={handleClose} getRecipes={getRecipes} isAuthenticated={isAuthenticated} />
             <Box sx={{ height: 550 }}>
