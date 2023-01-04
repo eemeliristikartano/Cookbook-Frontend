@@ -7,7 +7,7 @@ Cookbook-Backend repository: https://github.com/eemeliristikartano/Cookbook-Back
 
  ## Cookbook is a web application where authenticated user can:
  - Create a new recipe
- - Update excisting recipe
+ - Update existing recipe
  - Read recipes
  - Delete recipes.
 
