@@ -13,6 +13,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import EditRecipe from './EditRecipe';
 
+/* 
+    Similar to ShowRecipePublic-component. Difference is that in this component
+    there is buttons for editing and deleting a recipe.
+*/
+
 export default function ShowRecipeAuthenticated({ recipe, open, handleClose, getRecipes, }: any) {
 
     //TODO: Maybe own component for deleting recipe.
