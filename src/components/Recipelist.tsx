@@ -3,8 +3,8 @@ import { DataGrid, GridColDef, GridEventListener, GridRenderCellParams, GridRowP
 import { ICategory, IRecipe } from "../interfaces";
 import { Box } from "@mui/material";
 import AddRecipe from "./AddRecipe";
-import ShowRecipe from "./ShowRecipe";
 import { SERVER_URL } from "../constants";
+import ShowRecipePublic from "./ShowRecipePublic";
 
 export default function Recipelist({ isAuthenticated }: any) {
     const [recipes, setRecipes] = useState<Array<IRecipe>>([]);
@@ -50,7 +50,7 @@ export default function Recipelist({ isAuthenticated }: any) {
         <>
             {/* If the user is authenticated the user can add a recipe. */}
             {isAuthenticated && <AddRecipe getRecipes={getRecipes} />}
-            <ShowRecipe recipe={recipe} open={open} handleClose={handleClose} getRecipes={getRecipes} isAuthenticated={isAuthenticated} />
+            <ShowRecipePublic recipe={recipe} open={open} handleClose={handleClose} getRecipes={getRecipes} isAuthenticated={isAuthenticated} />
             <Box sx={{ height: 550 }}>
                 <DataGrid
                     getRowId={(row) => row.recipeId}
