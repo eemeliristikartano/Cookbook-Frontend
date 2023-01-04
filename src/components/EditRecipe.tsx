@@ -40,6 +40,7 @@ export default function EditRecipe({ recipeProps, getRecipes, closeRecipeDialog 
         ]
     });
 
+    // New inputfield for an ingredient.
     const addFields = () => {
         const newIngredient: IIngredient = {
             ingredientId: -1,
@@ -57,6 +58,7 @@ export default function EditRecipe({ recipeProps, getRecipes, closeRecipeDialog 
     }
 
 
+    // Opens dialog and set data for recipe.
     const handleOpen = () => {
         setOpen(!open)
         setRecipe({
@@ -69,6 +71,7 @@ export default function EditRecipe({ recipeProps, getRecipes, closeRecipeDialog 
         });
     }
 
+    // Get units and categories from database.
     useEffect(() => {
         const getUnits = async () => {
             try {
@@ -92,10 +95,10 @@ export default function EditRecipe({ recipeProps, getRecipes, closeRecipeDialog 
         getCategories();
     }, [])
 
-    // Handles ingredient name in ingredients.
+    // Handles ingredient name.
     const handleIngredientChange = (index: number, e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const data = [...recipe.ingredients] as IIngredient[]
-        // Setting ingredient and amount to the right index from inputfields. 
+        // Setting name of the ingredient to the right index. 
         data[index].ingredientName = e.target.value as string
         setRecipe({ ...recipe, ingredients: data });
     }
@@ -103,7 +106,7 @@ export default function EditRecipe({ recipeProps, getRecipes, closeRecipeDialog 
     // Handles amount in ingredients.
     const handleAmountChange = (index: number, e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const data = [...recipe.ingredients] as IIngredient[]
-        // Setting ingredient and amount to the right index from inputfields. 
+        // Setting amount to the right index.
         data[index].amount.quantity = e.target.value as string
         setRecipe({ ...recipe, ingredients: data });
     }
@@ -116,6 +119,7 @@ export default function EditRecipe({ recipeProps, getRecipes, closeRecipeDialog 
         setRecipe({ ...recipe, ingredients: ingredients });
     }
 
+    // Handles recipe's name and instructions.
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setRecipe({ ...recipe, [e.target.name]: e.target.value });
 
@@ -134,9 +138,13 @@ export default function EditRecipe({ recipeProps, getRecipes, closeRecipeDialog 
 
     // Deletes ingredient from database.
     const deleteIngredientFromDB = async (ingredientId?: number) => {
+        const token = sessionStorage.getItem('jwt-token') as string; // Token from session storage.
         const config = {
             method: 'POST',
-            headers: { 'Content-type': 'application/json' },
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': token
+            },
             body: JSON.stringify(ingredientId)
         };
         try {
@@ -151,9 +159,13 @@ export default function EditRecipe({ recipeProps, getRecipes, closeRecipeDialog 
 
     // Handles saving recipe to database.
     const handleSave = async () => {
+        const token = sessionStorage.getItem('jwt-token') as string; // Token from session storage.
         const config = {
             method: 'POST',
-            headers: { 'Content-type': 'application/json' },
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': token
+            },
             body: JSON.stringify(recipe)
         };
         try {
