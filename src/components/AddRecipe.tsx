@@ -68,12 +68,78 @@ export default function AddRecipe({ getRecipes }: any) {
         setInputFields([...inputFields, newField]);
     }
 
+    // Open dialog.
     const handleClickOpen = () => setOpen(!open);
 
-
+    // Close dialog.
     const handleClose = () => setOpen(!open);
 
 
+
+
+    // Handles ingredient name.
+    const handleNewIngredients = (index: number, e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const data = [...inputFields] as IIngredient[];
+        // Setting name of the ingredient to the right index from inputfields. 
+        data[index].ingredientName = e.target.value as string;
+        setRecipe({ ...recipe, ingredients: data });
+    }
+
+    // Handles amount.
+    const handleNewAmount = (index: number, e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const data = [...inputFields] as IIngredient[];
+        // Setting amount to the right index from inputfields. 
+        data[index].amount.quantity = e.target.value as string;
+        setRecipe({ ...recipe, ingredients: data });
+    }
+
+    // Handles unit.
+    const handleUnit = (index: number, e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const ingredients = [...inputFields] as IIngredient[];
+        // Setting unit to the right index. Find the right object from array by unit name.
+        ingredients[index].amount.unit = units.find(element => element.unit === e.target.value) as IUnit;
+        setRecipe({ ...recipe, ingredients: ingredients });
+    }
+
+    // Handles recipe's name and instructions.
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setRecipe({ ...recipe, [e.target.name]: e.target.value });
+
+    }
+
+
+    // Units and categories for adding a new recipe.
+    useEffect(() => {
+        const getUnits = async () => {
+            try {
+                const response = await fetch(SERVER_URL + '/units');
+                const data = await response.json();
+                setUnits(data);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        const getCategories = async () => {
+            try {
+                const response = await fetch(SERVER_URL + '/categories');
+                const data = await response.json();
+                setCategories(data);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        getUnits();
+        getCategories();
+    }, []);
+
+    // Deletes ingredient from inputFields and from the recipe.
+    const deleteIngredient = (ingredientIndex: number) => {
+        const ingredients = inputFields.filter((ingredient, index) => ingredientIndex !== index);
+        setRecipe({ ...recipe, ingredients: ingredients });
+        setInputFields(ingredients);
+    }
+
+    // Save recipe to database.
     const handleSave = async () => {
         const token = sessionStorage.getItem('jwt-token') as string; // Token from session storage.
         const config = {
@@ -126,67 +192,6 @@ export default function AddRecipe({ getRecipes }: any) {
         );
         getRecipes();
         handleClose();
-    }
-
-    // Handles ingredient name.
-    const handleNewIngredients = (index: number, e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const data = [...inputFields] as IIngredient[];
-        // Setting ingredient and amount to the right index from inputfields. 
-        data[index].ingredientName = e.target.value as string;
-        setRecipe({ ...recipe, ingredients: data });
-    }
-
-    // Handles amount.
-    const handleNewAmount = (index: number, e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const data = [...inputFields] as IIngredient[];
-        // Setting ingredient and amount to the right index from inputfields. 
-        data[index].amount.quantity = e.target.value as string;
-        setRecipe({ ...recipe, ingredients: data });
-    }
-
-    // Handles unit.
-    const handleUnit = (index: number, e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const ingredients = [...inputFields] as IIngredient[];
-        // Setting unit to the right index. Find the right object from array by unit name.
-        ingredients[index].amount.unit = units.find(element => element.unit === e.target.value) as IUnit;
-        setRecipe({ ...recipe, ingredients: ingredients });
-    }
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setRecipe({ ...recipe, [e.target.name]: e.target.value });
-
-    }
-
-
-    // Units and categories for adding a new recipe.
-    useEffect(() => {
-        const getUnits = async () => {
-            try {
-                const response = await fetch(SERVER_URL + '/units');
-                const data = await response.json();
-                setUnits(data);
-            } catch (error) {
-                console.log(error);
-            }
-        }
-        const getCategories = async () => {
-            try {
-                const response = await fetch(SERVER_URL + '/categories');
-                const data = await response.json();
-                setCategories(data);
-            } catch (error) {
-                console.log(error);
-            }
-        }
-        getUnits();
-        getCategories();
-    }, []);
-
-    // Deletes ingredient from inputFields and from the recipe.
-    const deleteIngredient = (ingredientIndex: number) => {
-        const ingredients = inputFields.filter((ingredient, index) => ingredientIndex !== index);
-        setRecipe({ ...recipe, ingredients: ingredients });
-        setInputFields(ingredients);
     }
 
     return (
