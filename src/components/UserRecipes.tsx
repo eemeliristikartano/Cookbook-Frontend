@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import { DataGrid, GridColDef, GridEventListener, GridRenderCellParams, GridRowParams, MuiEvent } from '@mui/x-data-grid';
 import { ICategory, IRecipe } from "../interfaces";
 import { Box } from "@mui/material";
-import AddRecipe from "./AddRecipe";
-import ShowRecipe from "./ShowRecipe";
 import { SERVER_URL } from "../constants";
+import ShowRecipeAuthenticated from "./ShowRecipeAuthenticated";
+
 
 /* 
  User's own recipes
 */
-
 
 export default function UserRecipes({ isAuthenticated }: any) {
     const [recipes, setRecipes] = useState<Array<IRecipe>>([]);
@@ -55,7 +54,7 @@ export default function UserRecipes({ isAuthenticated }: any) {
 
     return (
         <>
-            <ShowRecipe recipe={recipe} open={open} handleClose={handleClose} getRecipes={getUserRecipes} />
+            <ShowRecipeAuthenticated recipe={recipe} open={open} handleClose={handleClose} getRecipes={getUserRecipes} />
             <Box sx={{ height: 550 }}>
                 <DataGrid
                     getRowId={(row) => row.recipeId}
