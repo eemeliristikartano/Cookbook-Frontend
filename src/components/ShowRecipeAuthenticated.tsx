@@ -13,7 +13,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import EditRecipe from './EditRecipe';
 
-export default function ShowRecipe({ recipe, open, handleClose, getRecipes, }: any) {
+export default function ShowRecipeAuthenticated({ recipe, open, handleClose, getRecipes, }: any) {
 
     //TODO: Maybe own component for deleting recipe.
     const deleteRecipe = async (recipeId: number) => {
@@ -27,10 +27,10 @@ export default function ShowRecipe({ recipe, open, handleClose, getRecipes, }: a
             body: JSON.stringify(recipeId)
         }
         try {
-            const response = await fetch(SERVER_URL + '/deleterecipe', config)
+            const response = await fetch(SERVER_URL + '/deleterecipe', config);
             //TODO add if statement.
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
         // Fetches recipes from database.
         getRecipes();
