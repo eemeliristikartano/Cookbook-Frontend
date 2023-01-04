@@ -1,6 +1,6 @@
 import { SERVER_URL } from "../constants";
 import { Button, Stack } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
