@@ -4,40 +4,16 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Button } from '@mui/material';
-import { SERVER_URL } from '../constants';
 
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 
-import DeleteIcon from '@mui/icons-material/Delete';
+/* 
+    Similar to ShowRecipeAuthenticated-component. Difference is that in this component
+    there is no buttons for editing and deleting a recipe.
+*/
 
-import EditRecipe from './EditRecipe';
-
-export default function ShowRecipePublic({ recipe, open, handleClose, getRecipes, }: any) {
-
-    //TODO: Maybe own component for deleting recipe.
-    const deleteRecipe = async (recipeId: number) => {
-        const token = sessionStorage.getItem('jwt-token') as string; // Token from session storage.
-        const config = {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json',
-                'Authorization': token
-            },
-            body: JSON.stringify(recipeId)
-        }
-        try {
-            const response = await fetch(SERVER_URL + '/deleterecipe', config);
-            //TODO add if statement.
-        } catch (error) {
-            console.log(error);
-        }
-        // Fetches recipes from database.
-        getRecipes();
-        // Closes dialog that shows recipe.
-        handleClose();
-    }
-
+export default function ShowRecipePublic({ recipe, open, handleClose }: any) {
     return (
         <>
             {recipe !== undefined && // If the recipe is defined, return dialog that contains recipe.
