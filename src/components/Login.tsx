@@ -1,15 +1,18 @@
 import { SERVER_URL } from "../constants";
 import { Button, Stack } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { IUser } from "../interfaces";
+import Snackbar from '@mui/material/Snackbar';
 
 export default function Login({ handleIsAuthenticated }: any) {
     const [open, setOpen] = useState(false);
+    // State for alerts.
+    const [alertOpen, setAlertOpen] = useState(false);
     const [user, setUser] = useState<IUser>({
         username: '',
         password: ''
@@ -31,16 +34,22 @@ export default function Login({ handleIsAuthenticated }: any) {
         };
         try {
             const response = await fetch(SERVER_URL + '/login', config);
-            const jwtToken = response.headers.get("Authorization")
-            if (jwtToken !== null) {
-                sessionStorage.setItem('jwt-token', jwtToken); // Setting the token to session storage.
-                handleIsAuthenticated(); // Set isAuthenticate to true.
-                handleClose();
-            }
+            if (response.ok) {
+                const jwtToken = response.headers.get("Authorization")
+                if (jwtToken !== null) {
+                    sessionStorage.setItem('jwt-token', jwtToken); // Setting the token to session storage.
+                    handleIsAuthenticated(); // Set isAuthenticate to true.
+                    handleClose();
+                }
+            } else handleAlertOpen();
         } catch (error) {
             console.log(error)
         }
     }
+
+    const handleAlertOpen = () => setAlertOpen(!alertOpen);
+
+    const handleAlertClose = () => setAlertOpen(!alertOpen);
 
     return (
         <>
@@ -69,9 +78,8 @@ export default function Login({ handleIsAuthenticated }: any) {
                     <Button onClick={handleClose}>Close</Button>
                     <Button onClick={handleLogin} >Log in</Button>
                 </DialogActions>
-
-
             </Dialog>
+            <Snackbar open={alertOpen} autoHideDuration={4000} message='Username or password is incorrect.' onClose={handleAlertClose} />
         </>
     )
 
