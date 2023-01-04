@@ -150,7 +150,7 @@ export default function EditRecipe({ recipeProps, getRecipes, closeRecipeDialog 
         try {
             const response = await fetch(SERVER_URL + '/deleteingredient', config);
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     }
 
