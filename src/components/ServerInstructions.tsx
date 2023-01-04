@@ -17,7 +17,7 @@ export default function ServerInstructions() {
                     </Typography>
                     <Typography variant='body1' >
                         Backend runs on heroku.com. Please note that if there is no traffic in a 30-minute period, server sleeps so there might be a short delay.
-                        Usually, it takes 15-30 seconds for recipes to appear. Right now the database is a memory database, so every time server sleeps,
+                        Usually, it takes 15-30 seconds for recipes to appear. Right now the database is an in-memory database, so every time server sleeps,
                         the database resets. Recipes are randomized so ingredients, quantities and units doesn't always make sense.
                     </Typography>
                     <Typography variant='h5' >
