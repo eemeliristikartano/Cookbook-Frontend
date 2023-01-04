@@ -24,6 +24,18 @@ Non-authenticated user can:
  
 Authentication is done with JSON Web Token (JWT) using https://github.com/auth0/java-jwt.
 
+# Diagrams
+
+## Class diagram
+
+![image](https://user-images.githubusercontent.com/92360393/210605316-e1d4251f-23fc-44b4-897a-32ba3aab9ef5.png)
+
+## Java diagram
+![image](https://user-images.githubusercontent.com/92360393/210605629-10be7dec-6438-497d-bec4-eb581c6826f3.png)
+
+## Relational schema
+![image](https://user-images.githubusercontent.com/92360393/210605852-55853a18-9ecd-466c-9df6-bc9d02e280e9.png)
+
 
 # Getting Started with Create React App
 
