@@ -17,9 +17,13 @@ export default function ShowRecipe({ recipe, open, handleClose, getRecipes, }: a
 
     //TODO: Maybe own component for deleting recipe.
     const deleteRecipe = async (recipeId: number) => {
+        const token = sessionStorage.getItem('jwt-token') as string; // Token from session storage.
         const config = {
             method: 'POST',
-            headers: { 'Content-type': 'application/json' },
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': token
+            },
             body: JSON.stringify(recipeId)
         }
         try {
