@@ -19,7 +19,6 @@ export default function UserInstructions() {
                             User can sort and filter data on the table.
                             When user adds a new recipe, it goes to the last page on the table.
                             User can watch recipes by clicking on a row on RECIPES-tab.
-                            TODO: User can only edit and delete user's own recipes. This will be secured on the backend.
                         </Typography>
                         <Typography variant='h4' >
                             Others
