@@ -99,7 +99,6 @@ export default function Register() {
                     setMessage('Something went wrong.');
                     handleAlertOpen();
                 }
-                console.log(response)
             } catch (error) {
                 console.log(error)
             }
