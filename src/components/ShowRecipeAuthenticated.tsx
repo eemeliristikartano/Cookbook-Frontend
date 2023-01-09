@@ -5,20 +5,32 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Button } from '@mui/material';
 import { SERVER_URL } from '../constants';
-
+import { useState } from 'react';
+import Snackbar from '@mui/material/Snackbar';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-
 import DeleteIcon from '@mui/icons-material/Delete';
-
 import EditRecipe from './EditRecipe';
+import { IRecipe } from '../interfaces';
+
+// Interface for props.
+interface IShowRecipeAuthenticated {
+    recipe: IRecipe | undefined
+    open: boolean
+    handleClose: () => void
+    getRecipes: () => void
+}
 
 /* 
     Similar to ShowRecipePublic-component. Difference is that in this component
     there is buttons for editing and deleting a recipe.
 */
 
-export default function ShowRecipeAuthenticated({ recipe, open, handleClose, getRecipes, }: any) {
+export default function ShowRecipeAuthenticated({ recipe, open, handleClose, getRecipes, }: IShowRecipeAuthenticated) {
+    // State for alerts.
+    const [alertOpen, setAlertOpen] = useState(false);
+    // State for messages.
+    const [message, setMessage] = useState('');
 
     //TODO: Maybe own component for deleting recipe.
     const deleteRecipe = async (recipeId: number) => {
@@ -33,7 +45,13 @@ export default function ShowRecipeAuthenticated({ recipe, open, handleClose, get
         }
         try {
             const response = await fetch(SERVER_URL + '/deleterecipe', config);
-            //TODO add if statement.
+            if (response.ok) {
+                setMessage('Recipe was deleted!');
+                handleAlertOpen();
+            } else {
+                setMessage('Something went wrong with deleting the recipe.');
+                handleAlertOpen();
+            }
         } catch (error) {
             console.log(error);
         }
@@ -42,6 +60,11 @@ export default function ShowRecipeAuthenticated({ recipe, open, handleClose, get
         // Closes dialog that shows recipe.
         handleClose();
     }
+
+    // Alert for user.
+    const handleAlertOpen = () => setAlertOpen(!alertOpen);
+
+    const handleAlertClose = () => setAlertOpen(!alertOpen);
 
     return (
         <>
@@ -67,7 +90,7 @@ export default function ShowRecipeAuthenticated({ recipe, open, handleClose, get
                             color='error'
                             size='large'
                             endIcon={<DeleteIcon />}
-                            onClick={() => deleteRecipe(recipe.recipeId)}
+                            onClick={() => deleteRecipe(recipe.recipeId ? recipe.recipeId : -1)}
                         >Delete</Button>
                         <Button
                             variant='outlined'
@@ -75,6 +98,7 @@ export default function ShowRecipeAuthenticated({ recipe, open, handleClose, get
                     </DialogActions>
                 </Dialog>
             }
+            <Snackbar open={alertOpen} autoHideDuration={5000} message={message} onClose={handleAlertClose} />
         </>
     );
 }
