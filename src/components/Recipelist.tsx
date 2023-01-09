@@ -6,7 +6,14 @@ import AddRecipe from "./AddRecipe";
 import { SERVER_URL } from "../constants";
 import ShowRecipePublic from "./ShowRecipePublic";
 
-export default function Recipelist({ isAuthenticated }: any) {
+// Interface for props.
+interface IRecipelist {
+    isAuthenticated: boolean
+}
+
+export default function Recipelist({ isAuthenticated }: IRecipelist) {
+    // For loading icon.
+    const [dataIsNotReady, setDataIsNotReady] = useState(true);
     const [recipes, setRecipes] = useState<Array<IRecipe>>([]);
     const [recipe, setRecipe] = useState<IRecipe>();
     const [open, setOpen] = useState(false);
@@ -24,8 +31,11 @@ export default function Recipelist({ isAuthenticated }: any) {
     const getRecipes = async () => {
         try {
             const response = await fetch(SERVER_URL + '/recipes');
-            const data = await response.json();
-            setRecipes(data);
+            if (response.ok) {
+                const data = await response.json();
+                setRecipes(data);
+                setDataIsNotReady(false);
+            }
         } catch (error) {
             console.log(error)
         }
@@ -50,7 +60,7 @@ export default function Recipelist({ isAuthenticated }: any) {
         <>
             {/* If the user is authenticated the user can add a recipe. */}
             {isAuthenticated && <AddRecipe getRecipes={getRecipes} />}
-            <ShowRecipePublic recipe={recipe} open={open} handleClose={handleClose} getRecipes={getRecipes} isAuthenticated={isAuthenticated} />
+            <ShowRecipePublic recipe={recipe} open={open} handleClose={handleClose} />
             <Box sx={{ height: 550 }}>
                 <DataGrid
                     getRowId={(row) => row.recipeId}
@@ -62,6 +72,8 @@ export default function Recipelist({ isAuthenticated }: any) {
                     //rowCount={10}
                     pageSize={10}
                     onRowClick={handleEvent}
+                    // If the data is not ready -> show loading-icon.
+                    loading={dataIsNotReady}
                 />
             </Box>
         </>
