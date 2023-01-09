@@ -4,16 +4,23 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Button } from '@mui/material';
-
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
+import { IRecipe } from '../interfaces';
+
+// Interface for props.
+interface IShowRecipePublic {
+    recipe: IRecipe | undefined
+    open: boolean
+    handleClose: () => void
+}
 
 /* 
     Similar to ShowRecipeAuthenticated-component. Difference is that in this component
     there is no buttons for editing and deleting a recipe.
 */
 
-export default function ShowRecipePublic({ recipe, open, handleClose }: any) {
+export default function ShowRecipePublic({ recipe, open, handleClose }: IShowRecipePublic) {
     return (
         <>
             {recipe !== undefined && // If the recipe is defined, return dialog that contains recipe.
