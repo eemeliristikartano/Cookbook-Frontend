@@ -5,6 +5,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import DialogContentText from '@mui/material/DialogContentText';
 import { ICategory, IIngredient, IRecipe, IUnit } from "../interfaces";
 import MenuItem from '@mui/material/MenuItem';
 
@@ -201,6 +202,9 @@ export default function AddRecipe({ getRecipes }: any) {
                 <DialogTitle>Add recipe.</DialogTitle>
                 <DialogContent dividers>
                     <Stack spacing={3}>
+                        <DialogContentText>
+                            Right now the database is an in-memory database, so every time server sleeps, the database resets. Saved recipes will be gone after the reset.
+                        </DialogContentText>
                         <TextField
                             label='Name'
                             name='recipeName'
