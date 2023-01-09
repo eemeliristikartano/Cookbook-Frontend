@@ -12,9 +12,12 @@ import Snackbar from '@mui/material/Snackbar';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { SERVER_URL } from "../constants";
 
+// Interface for props.
+interface IAddRecipe {
+    getRecipes: () => void
+}
 
-
-export default function AddRecipe({ getRecipes }: any) {
+export default function AddRecipe({ getRecipes }: IAddRecipe) {
     const [open, setOpen] = useState(false);
     // State for alerts.
     const [alertOpen, setAlertOpen] = useState(false);
@@ -161,7 +164,7 @@ export default function AddRecipe({ getRecipes }: any) {
                 setMessage('Recipe was saved!');
                 handleAlertOpen();
             } else {
-                setMessage('Something went wrong while saving the recipe.');
+                setMessage('Something went wrong with saving the recipe.');
                 handleAlertOpen();
             }
         } catch (error) {
