@@ -127,7 +127,7 @@ export default function Register() {
     */
 
     const handlePassWordValidation = () => {
-        if (user.password != undefined) {
+        if (user.password !== undefined) {
             // If the password length is 0.
             if (user.password?.length === 0) setIsPasswordValid({ ...isPasswordValid, isValid: false, errorMessage: 'Insert a password.' });
             // If the password is too short.
@@ -180,9 +180,9 @@ export default function Register() {
                             onChange={handleChange}
                             type='password'
                             // If the passwords don't match and password is not unfedined and length of the password is greater than 0 -> error
-                            error={user.password !== user.passwordCheck && user.password != undefined && user.password?.length > 0}
+                            error={user.password !== user.passwordCheck && user.password !== undefined && user.password?.length > 0}
                             // If the passwords don't match and password is not unfedined and length of the password is greater than 0 -> helper text for the user.
-                            helperText={user.password !== user.passwordCheck && user.password != undefined && user.password?.length > 0 && 'Password dont match'}
+                            helperText={user.password !== user.passwordCheck && user.password !== undefined && user.password?.length > 0 && 'Password dont match'}
                         />
                     </Stack>
                 </DialogContent>
