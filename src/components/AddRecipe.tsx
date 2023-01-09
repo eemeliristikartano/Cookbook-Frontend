@@ -8,7 +8,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContentText from '@mui/material/DialogContentText';
 import { ICategory, IIngredient, IRecipe, IUnit } from "../interfaces";
 import MenuItem from '@mui/material/MenuItem';
-
+import Snackbar from '@mui/material/Snackbar';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { SERVER_URL } from "../constants";
 
@@ -16,6 +16,10 @@ import { SERVER_URL } from "../constants";
 
 export default function AddRecipe({ getRecipes }: any) {
     const [open, setOpen] = useState(false);
+    // State for alerts.
+    const [alertOpen, setAlertOpen] = useState(false);
+    // State for messages.
+    const [message, setMessage] = useState('');
     const [units, setUnits] = useState<Array<IUnit>>([]);
     const [categories, setCategories] = useState<Array<ICategory>>([]);
     const [recipe, setRecipe] = useState<IRecipe>({
@@ -153,7 +157,13 @@ export default function AddRecipe({ getRecipes }: any) {
         };
         try {
             const response = await fetch(SERVER_URL + '/saverecipe', config);
-            //TODO add if statement.
+            if (response.ok) {
+                setMessage('Recipe was saved!');
+                handleAlertOpen();
+            } else {
+                setMessage('Something went wrong while saving the recipe.');
+                handleAlertOpen();
+            }
         } catch (error) {
             console.log(error)
         }
@@ -194,6 +204,11 @@ export default function AddRecipe({ getRecipes }: any) {
         getRecipes();
         handleClose();
     }
+
+    // Alert for user.
+    const handleAlertOpen = () => setAlertOpen(!alertOpen);
+
+    const handleAlertClose = () => setAlertOpen(!alertOpen);
 
     return (
         <>
@@ -291,6 +306,7 @@ export default function AddRecipe({ getRecipes }: any) {
                     <Button onClick={handleSave}>Save</Button>
                 </DialogActions>
             </Dialog>
+            <Snackbar open={alertOpen} autoHideDuration={5000} message={message} onClose={handleAlertClose} />
         </>
     );
 }
