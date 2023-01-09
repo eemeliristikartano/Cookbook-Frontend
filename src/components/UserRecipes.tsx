@@ -5,12 +5,16 @@ import { Box } from "@mui/material";
 import { SERVER_URL } from "../constants";
 import ShowRecipeAuthenticated from "./ShowRecipeAuthenticated";
 
+// Interface for props.
+interface IUserRecipes {
+    isAuthenticated: boolean
+}
 
 /* 
- User's own recipes
+* User's own recipes
 */
 
-export default function UserRecipes({ isAuthenticated }: any) {
+export default function UserRecipes({ isAuthenticated }: IUserRecipes) {
     const [recipes, setRecipes] = useState<Array<IRecipe>>([]);
     const [recipe, setRecipe] = useState<IRecipe>();
     const [open, setOpen] = useState(false);
