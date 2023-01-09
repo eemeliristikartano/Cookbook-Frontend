@@ -37,6 +37,7 @@ export interface IUnit {
 
 // Interface for user
 export interface IUser {
-    username: string,
-    password: string
+    username: string
+    password?: string
+    passwordCheck?: string
 }
