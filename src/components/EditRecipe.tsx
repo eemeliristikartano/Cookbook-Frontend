@@ -7,13 +7,25 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { ICategory, IIngredient, IRecipe, IUnit } from "../interfaces";
 import MenuItem from '@mui/material/MenuItem';
 import { useState, useEffect } from 'react'
-
+import Snackbar from '@mui/material/Snackbar';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { SERVER_URL } from '../constants';
 
-export default function EditRecipe({ recipeProps, getRecipes, closeRecipeDialog }: any) {
+// Interface for props.
+interface IEditRecipe {
+    recipeProps: IRecipe
+    getRecipes: () => void
+    closeRecipeDialog: () => void
+}
+
+
+export default function EditRecipe({ recipeProps, getRecipes, closeRecipeDialog }: IEditRecipe) {
     const [open, setOpen] = useState(false);
+    // State for alerts.
+    const [alertOpen, setAlertOpen] = useState(false);
+    // State for messages.
+    const [message, setMessage] = useState('');
     const [units, setUnits] = useState<Array<IUnit>>([]);
     const [categories, setCategories] = useState<Array<ICategory>>([]);
     const [recipe, setRecipe] = useState<IRecipe>({
@@ -170,7 +182,13 @@ export default function EditRecipe({ recipeProps, getRecipes, closeRecipeDialog 
         };
         try {
             const response = await fetch(SERVER_URL + '/updaterecipe', config);
-            //TODO add if statement.
+            if (response.ok) {
+                setMessage('Recipe was saved!');
+                handleAlertOpen();
+            } else {
+                setMessage('Something went wrong with editing the recipe.')
+                handleAlertOpen();
+            }
         } catch (error) {
             console.log(error)
         }
@@ -181,6 +199,13 @@ export default function EditRecipe({ recipeProps, getRecipes, closeRecipeDialog 
         // Closes editform.
         handleClose();
     }
+
+    // Alert for user.
+    const handleAlertOpen = () => setAlertOpen(!alertOpen);
+
+    const handleAlertClose = () => setAlertOpen(!alertOpen);
+
+
     return (
         <>
             <Button
@@ -276,9 +301,8 @@ export default function EditRecipe({ recipeProps, getRecipes, closeRecipeDialog 
                     <Button onClick={handleClose} >Close</Button>
                     <Button onClick={handleSave}>Save</Button>
                 </DialogActions>
-
-
             </Dialog>
+            <Snackbar open={alertOpen} autoHideDuration={5000} message={message} onClose={handleAlertClose} />
         </>
     );
 }
