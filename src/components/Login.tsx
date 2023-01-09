@@ -9,7 +9,12 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { IUser } from "../interfaces";
 import Snackbar from '@mui/material/Snackbar';
 
-export default function Login({ handleIsAuthenticated }: any) {
+// Interface for props.
+interface ILogin {
+    handleIsAuthenticated: () => void
+}
+
+export default function Login({ handleIsAuthenticated }: ILogin) {
     const [open, setOpen] = useState(false);
     // State for alerts.
     const [alertOpen, setAlertOpen] = useState(false);
