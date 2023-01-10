@@ -221,7 +221,7 @@ export default function AddRecipe({ getRecipes }: IAddRecipe) {
                 <DialogContent dividers>
                     <Stack spacing={3}>
                         <DialogContentText>
-                            Right now the database is an in-memory database, so every time server sleeps, the database resets. Saved recipes will be gone after the reset.
+                            Database is not anymore an in-memory database, so data will be saved even when the server sleeps. Anyone can reset the database from the INSTRUCTIONS-tab.
                         </DialogContentText>
                         <TextField
                             label='Name'
