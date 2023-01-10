@@ -22,6 +22,9 @@ Non-authenticated user can:
  - TypeScript
  - React
  
+  ## Database
+ - Heroku Postgres
+ 
 Authentication is done with JSON Web Token (JWT) using https://github.com/auth0/java-jwt.
 
 # Diagrams
