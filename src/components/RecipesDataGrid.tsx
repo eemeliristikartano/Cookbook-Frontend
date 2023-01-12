@@ -26,7 +26,7 @@ export default function RecipesDataGrid({ recipes, dataIsNotReady, handleEvent }
     ];
 
     return (
-        <Box sx={{ height: 100 + '%', width: 100 + '%', backgroundColor: 'white' }} borderRadius={5} >
+        <Box sx={{ width: 100 + '%', backgroundColor: '#AAABAB' }} minHeight={100 + '%'} borderRadius={5} >
             <DataGrid
                 sx={{ borderRadius: 5 }}
                 getRowId={(row) => row.recipeId}
