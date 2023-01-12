@@ -4,10 +4,14 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 
-export default function UserInstructions() {
+interface IServerInstructions {
+    width: number
+}
+
+export default function UserInstructions({ width }: IServerInstructions) {
     return (
-        <Grid2 width={0.5}>
-            <Card>
+        <Grid2 width={width}>
+            <Card sx={{ borderRadius: 5, backgroundColor: '#AAABAB' }}>
                 <CardContent>
                     <Stack spacing={3}>
                         <Typography variant='h4' >
