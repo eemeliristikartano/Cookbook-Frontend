@@ -9,6 +9,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContentText from '@mui/material/DialogContentText';
 import { IUser } from "../interfaces";
 import Snackbar from '@mui/material/Snackbar';
+import Fab from '@mui/material/Fab';
 
 
 export default function Register() {
@@ -145,9 +146,8 @@ export default function Register() {
 
     return (
         <>
-            <Button variant="contained" sx={{ display: 'flex', marginLeft: 2 + 'px' }} onClick={handleOpen} >Register</Button>
+            <Fab color="secondary" variant="extended" sx={{ position: 'fixed', bottom: 20 + 'px', left: 62 + 'px' }} onClick={handleOpen}>Register</Fab>
             <Dialog open={open} onClose={handleClose} fullWidth>
-
                 <DialogTitle>Register</DialogTitle>
                 <DialogContent dividers>
                     <Stack spacing={3}>
