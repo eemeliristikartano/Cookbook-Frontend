@@ -2,17 +2,20 @@ import Grid2 from '@mui/material/Unstable_Grid2';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import ResetDB from './ResetDB';
 
-export default function ServerInstructions() {
+// Interface for props.
+interface IServerInstructions {
+    width: number
+}
+
+export default function ServerInstructions({ width }: IServerInstructions) {
+
 
     return (
-        <Grid2 width={0.5}>
-            <Card>
+        <Grid2 width={width}>
+            <Card sx={{ borderRadius: 5, backgroundColor: '#AAABAB' }}>
                 <CardContent>
                     <Stack spacing={3}>
                         <Typography variant='h4' >
@@ -25,22 +28,6 @@ export default function ServerInstructions() {
                             POST-request to https://cookbook22.herokuapp.com/reset and deletes all the data and generates new test data.
                         </Typography>
                         <ResetDB />
-                        <Typography variant='h5' >
-                            Recipes, unit and categories are fetched from:
-                        </Typography>
-                        <Typography component={'span'}>
-                            <List>
-                                <ListItem>
-                                    <Link href='https://cookbook22.herokuapp.com/recipes' >https://cookbook22.herokuapp.com/recipes</Link>
-                                </ListItem>
-                                <ListItem>
-                                    <Link href='https://cookbook22.herokuapp.com/units'>https://cookbook22.herokuapp.com/units</Link>
-                                </ListItem>
-                                <ListItem>
-                                    <Link href='https://cookbook22.herokuapp.com/categories'>https://cookbook22.herokuapp.com/categories</Link>
-                                </ListItem>
-                            </List>
-                        </Typography>
                     </Stack>
                 </CardContent>
             </Card>
