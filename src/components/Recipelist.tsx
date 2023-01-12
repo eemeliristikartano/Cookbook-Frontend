@@ -1,18 +1,13 @@
 import { useState, useEffect } from "react";
-import { DataGrid, GridColDef, GridEventListener, GridRenderCellParams, GridRowParams, MuiEvent } from '@mui/x-data-grid';
-import { ICategory, IRecipe } from "../interfaces";
-import { Box } from "@mui/material";
+import { GridEventListener, GridRowParams, MuiEvent } from '@mui/x-data-grid';
+import { IRecipe } from "../interfaces";
 import AddRecipe from "./AddRecipe";
 import { SERVER_URL } from "../constants";
 import ShowRecipePublic from "./ShowRecipePublic";
 import RecipesDataGrid from "./RecipesDataGrid";
 
-// Interface for props.
-interface IRecipelist {
-    isAuthenticated: boolean
-}
 
-export default function Recipelist({ isAuthenticated }: IRecipelist) {
+export default function Recipelist() {
     // For loading icon.
     const [dataIsNotReady, setDataIsNotReady] = useState(true);
     const [recipes, setRecipes] = useState<Array<IRecipe>>([]);
@@ -51,7 +46,7 @@ export default function Recipelist({ isAuthenticated }: IRecipelist) {
     return (
         <>
             {/* If the user is authenticated the user can add a recipe. */}
-            {isAuthenticated && <AddRecipe getRecipes={getRecipes} />}
+            {sessionStorage.getItem('jwt-token') !== null && <AddRecipe getRecipes={getRecipes} />}
             <ShowRecipePublic recipe={recipe} open={open} handleClose={handleClose} />
             <RecipesDataGrid recipes={recipes} dataIsNotReady={dataIsNotReady} handleEvent={handleEvent} />
         </>
