@@ -11,6 +11,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Snackbar from '@mui/material/Snackbar';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { SERVER_URL } from "../constants";
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add'
 
 // Interface for props.
 interface IAddRecipe {
@@ -215,7 +217,9 @@ export default function AddRecipe({ getRecipes }: IAddRecipe) {
 
     return (
         <>
-            <Button variant="contained" onClick={handleClickOpen} >Add recipe</Button>
+            <Fab color='primary' sx={{ position: 'fixed', bottom: 20 + 'px', left: 80 + 'px' }} onClick={handleClickOpen}>
+                <AddIcon />
+            </Fab>
             <Dialog open={open} onClose={handleClose} fullWidth>
                 <DialogTitle>Add recipe.</DialogTitle>
                 <DialogContent dividers>
