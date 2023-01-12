@@ -5,16 +5,12 @@ import { SERVER_URL } from "../constants";
 import ShowRecipeAuthenticated from "./ShowRecipeAuthenticated";
 import RecipesDataGrid from "./RecipesDataGrid";
 
-// Interface for props.
-interface IUserRecipes {
-    isAuthenticated: boolean
-}
 
 /* 
 * User's own recipes
 */
 
-export default function UserRecipes({ isAuthenticated }: IUserRecipes) {
+export default function UserRecipes() {
     const [recipes, setRecipes] = useState<Array<IRecipe>>([]);
     const [recipe, setRecipe] = useState<IRecipe>();
     const [open, setOpen] = useState(false);
