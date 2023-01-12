@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { DataGrid, GridColDef, GridEventListener, GridRenderCellParams, GridRowParams, MuiEvent } from '@mui/x-data-grid';
-import { ICategory, IRecipe } from "../interfaces";
-import { Box } from "@mui/material";
+import { GridEventListener, GridRowParams, MuiEvent } from '@mui/x-data-grid';
+import { IRecipe } from "../interfaces";
 import { SERVER_URL } from "../constants";
 import ShowRecipeAuthenticated from "./ShowRecipeAuthenticated";
+import RecipesDataGrid from "./RecipesDataGrid";
 
 // Interface for props.
 interface IUserRecipes {
@@ -18,15 +18,7 @@ export default function UserRecipes({ isAuthenticated }: IUserRecipes) {
     const [recipes, setRecipes] = useState<Array<IRecipe>>([]);
     const [recipe, setRecipe] = useState<IRecipe>();
     const [open, setOpen] = useState(false);
-
-    // Definitions for columns.
-    const columnsDefs: GridColDef[] = [
-        { field: 'recipeName', headerName: 'Name', flex: 1 },
-        {
-            field: 'category', headerName: 'Category', flex: 1,
-            valueGetter: (params: GridRenderCellParams<ICategory>) => params.value != null ? params.value.name : '',
-        }
-    ];
+    const [dataIsNotReady, setDataIsNotReady] = useState(true);
 
     // Gets all recipes from a backend.
     const getUserRecipes = async () => {
@@ -35,8 +27,11 @@ export default function UserRecipes({ isAuthenticated }: IUserRecipes) {
             const response = await fetch(SERVER_URL + '/userrecipes', {
                 headers: { 'Authorization': token }
             });
-            const data = await response.json();
-            setRecipes(data);
+            if (response.ok) {
+                const data = await response.json();
+                setRecipes(data);
+                setDataIsNotReady(false);
+            }
         } catch (error) {
             console.log(error)
         }
@@ -59,19 +54,7 @@ export default function UserRecipes({ isAuthenticated }: IUserRecipes) {
     return (
         <>
             <ShowRecipeAuthenticated recipe={recipe} open={open} handleClose={handleClose} getRecipes={getUserRecipes} />
-            <Box sx={{ height: 550 }}>
-                <DataGrid
-                    getRowId={(row) => row.recipeId}
-                    rows={recipes}
-                    columns={columnsDefs}
-                    autoHeight
-                    rowsPerPageOptions={[10]}
-                    disableSelectionOnClick
-                    //rowCount={10}
-                    pageSize={10}
-                    onRowClick={handleEvent}
-                />
-            </Box>
+            <RecipesDataGrid recipes={recipes} dataIsNotReady={dataIsNotReady} handleEvent={handleEvent} />
         </>
     );
 
