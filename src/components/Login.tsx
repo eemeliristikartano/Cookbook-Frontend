@@ -8,6 +8,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { IUser } from "../interfaces";
 import Snackbar from '@mui/material/Snackbar';
+import Fab from '@mui/material/Fab';
 
 // Interface for props.
 interface ILogin {
@@ -58,9 +59,8 @@ export default function Login({ handleIsAuthenticated }: ILogin) {
 
     return (
         <>
-            <Button variant="contained" sx={{ display: 'flex' }} onClick={handleOpen} >Log in</Button>
+            <Fab color="success" sx={{ position: 'fixed', bottom: 20 + 'px', left: 3 + 'px' }} onClick={handleOpen}>Log in</Fab>
             <Dialog open={open} onClose={handleClose} fullWidth>
-
                 <DialogTitle>Log in</DialogTitle>
                 <DialogContent dividers>
                     <Stack spacing={3}>
