@@ -32,7 +32,7 @@ export default function ResetDB() {
 
     return (
         <>
-            <Button variant='contained' sx={{ width: 25 + '%', display: 'flex', alignSelf: 'center' }} onClick={() => handleDBReset()} >Reset database</Button>
+            <Button variant='contained' sx={{ width: 50 + '%', display: 'flex', alignSelf: 'center' }} onClick={() => handleDBReset()} >Reset database</Button>
             <Snackbar open={alertOpen} autoHideDuration={5000} message={message} onClose={handleAlertClose} />
         </>
     )
