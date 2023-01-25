@@ -6,6 +6,7 @@ export interface IRecipe {
     category: ICategory
     dateCreated?: string
     dateEdited?: string
+    user?: IUser
     source: string
     ingredients: IIngredient[]
 }
@@ -37,7 +38,9 @@ export interface IUnit {
 
 // Interface for user
 export interface IUser {
+    userId?: number
     username: string
     password?: string
     passwordCheck?: string
+    role?: string
 }
