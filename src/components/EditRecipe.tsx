@@ -32,6 +32,12 @@ export default function EditRecipe({ recipeProps, getRecipes, closeRecipeDialog 
         recipeName: '',
         instructions: '',
         source: '',
+        dateCreated: '',
+        dateEdited: '',
+        user: {
+            userId: -1,
+            username: ''
+        },
         category: {
             categoryId: -1,
             name: ''
@@ -78,6 +84,9 @@ export default function EditRecipe({ recipeProps, getRecipes, closeRecipeDialog 
             recipeName: recipeProps.recipeName,
             instructions: recipeProps.instructions,
             source: recipeProps.source,
+            dateCreated: recipeProps.dateCreated,
+            dateEdited: recipeProps.dateEdited,
+            user: recipeProps.user,
             category: recipeProps.category,
             ingredients: recipeProps.ingredients
         });
@@ -181,7 +190,7 @@ export default function EditRecipe({ recipeProps, getRecipes, closeRecipeDialog 
             body: JSON.stringify(recipe)
         };
         try {
-            const response = await fetch(SERVER_URL + '/updaterecipe', config);
+            const response = await fetch(SERVER_URL + '/saverecipe', config);
             if (response.ok) {
                 setMessage('Recipe was saved!');
                 handleAlertOpen();
